@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGRISK</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@300;400;600;700&family=Raleway:wght@900&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@5.0.2/dist/tesseract.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.6.0/dist/tf.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Barlow+Semi+Condensed:wght@300&family=Manrope:wght@700&family=Noto+Sans+JP:wght@500&family=Questrial&family=Roboto:wght@900&family=Saira:wght@300&display=swap" rel="stylesheet">
+  <body>  
+    <div class="frame_1">
+        <div class="navbar" id="navbar">
+            <div class="element__webname">
+                ENGRISK
+            </div>
+        </div> 
+        <div class="start__site" id="firstSAite">
+            <div class="first--site">
+                <div class="startgame">
+                    <img src="/1x/start.png" alt="start" class="start_pic">
+                </div>
+            </div>
+        </div>
+        <div class="info--web">
+            <div class="info--shop">22520273@gm.uit.edu.vn<br> @787071810</div>
+            <div class="info--index">Tanner Wayment' art <br> Inktober 2021</div>
+            <div class="info--index">Handwritten Text OCR <br> By AMAN KUMAR <br>/ Tesseract Module</div>
+        </div>
+    </div>
+    <div class="frame_2" id="frame_2">
+        <div class="navbar_2" id="navbar">
+            <div class="element__webname">
+                ENGRISK
+            </div>
+        </div> 
+        <div class="game_site">
+            <div class="picture">
+               
+            </div>
+            <div class="notgame_site">
+                <div class="answer">
+                    <h2>This is</h2>
+                    <div class="answer_box">
+                        <canvas id='my-canvas' width="700" height="150" ></canvas>
+                        <div class="button">
+                           <button class="check" onclick="check_answer()">CHECK</button> 
+                           <button class="next"  onclick="next_question()">NEXT</button> 
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="capture">
+
+                </div>
+                <div class="notify">
+                    
+                </div>
+            </div>
+            
+        </div>
+        <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100" class="line-music">
+    </div>
+    <div class="reward-site">
+       
+    </div>
+    
+    <script src='drawing.js'></script>
+    <script>
+        const progress = document.querySelector('.progress')
+        const frame2 = document.getElementById("frame_2");
+        frame2.style.display = "none";
+        const picture_site = document.querySelector('.picture'); // Use querySelector to select by class
+        const notify = document.querySelector(".notify")
+        const start_pic = document.querySelector(".start_pic")
+        start_pic.addEventListener("click", () => {
+            const frame1 = document.querySelector(".frame_1");
+            frame1.style.display = "none"; // Use double quotes for "none"
+            frame2.style.display = "flex";
+        });
+        const start = {
+            currentIndex: 0,
+            Art: [],
+            answerRight:0,
+            render: function (index = 0) {
+                picture_site.innerHTML = '';
+                picture_site.innerHTML = `<img src="${this.Art[index].picture}" alt="start" class="guess_pic animate__animated animate__flipInY animate__faster">`;
+                console.log(`Answer: ${this.Art[index].answer}`);
+            }
+        };
+        let set_of_question = [];
+        
+        fetch(`qanda.json`)
+            .then((response) => response.json())
+            .then((data) => {
+                const photos = data.Set_1;
+                start.Art = photos.map((photo, index) => {
+                    return {
+                        index: index,
+                        question: photo.question,
+                        picture: photo.picture,
+                        answer: photo.answer
+                    };
+                });
+                start.render();
+            });
+        function clearCanvas() {
+            const canvas = document.getElementById('my-canvas');
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+            
+        function next_question(){
+            start.currentIndex = (start.currentIndex + 1) <= start.Art.length - 1 ? (start.currentIndex + 1) : 0;
+            start.render(start.currentIndex);
+            const canvas = document.getElementById('my-canvas');
+            clearCanvas()
+            notify.innerHTML = ""
+        }
+        
+        let Answered = ""
+        
+        function check_answer() {
+            const findEl = document.getElementById('my-canvas');
+            html2canvas(findEl).then((canvas) => {
+                const originalWidth = canvas.width;
+                const originalHeight = canvas.height;
+                const cropWidth = originalWidth * 0.8;
+                const cropHeight = originalHeight * 0.9;
+                const cropX = (originalWidth - cropWidth) / 2;
+                const cropY = (originalHeight - cropHeight) / 2;
+                // Create a new canvas element for cropping
+                const croppedCanvas = document.createElement('canvas');
+                croppedCanvas.width = cropWidth;
+                croppedCanvas.height = cropHeight;
+                const croppedContext = croppedCanvas.getContext('2d');
+
+                croppedContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+    
+                const imgData = croppedContext.getImageData(0, 0, cropWidth, cropHeight);
+                for (let i = 0; i < imgData.data.length; i += 4) {
+                    let brightness = (imgData.data[i] + imgData.data[i + 1] + imgData.data[i + 2]) / 3;
+                    let color = 255 - brightness; 
+                    color += 50;
+                    color = Math.min(255, color); 
+                    imgData.data[i] = color;
+                    imgData.data[i + 1] = color;
+                    imgData.data[i + 2] = color;
+                    imgData.data[i + 3] = 255; 
+                }
+                croppedContext.putImageData(imgData, 0, 0);
+        
+                const modifiedDataURL = croppedCanvas.toDataURL();
+        
+                Tesseract.recognize(
+                    modifiedDataURL,
+                    'eng',
+                    {
+                        logger: m => console.log(m)
+                    }
+                ).then(({ data: { text } }) => {
+                    Answered = text.toLowerCase().replace(/\s+/g, ''); 
+                    console.log("Your answer: ", Answered)
+                    if(Answered == start.Art[start.currentIndex].answer){
+                        start.answerRight = start.answerRight + 1;
+                        progress.value = Math.floor((start.answerRight / (start.Art.length || 1)) * 100);
+
+                        notify.innerHTML = `<img src="/right/${Math.floor(Math.random() * 7)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
+                        if (start.answerRight == 17) {
+                            // Show the reward
+                            const rewardSite = document.querySelector('.reward-site');
+                            const html = `
+                                <div class="reward" id="reward">
+                                    <div class="backgr"> </div>
+                                    <img src="qrcode.png" alt="hit" class="rewardImg">
+                                </div> 
+                            `
+                            rewardSite.innerHTML = html
+                        }
+                    }
+                    else{
+                        notify.innerHTML = `<img src="/faul/${Math.floor(Math.random() * 4)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
+                        setTimeout(clearCanvas(), 5000);
+                    }
+                });
+            });
+        }
+    </script> 
+  </body> 
+</html>
