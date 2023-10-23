@@ -3,87 +3,87 @@
     [
         {
             "question":"1",
-            "picture":"/web/1.png",
+            "picture":"1.png",
             "answer":"mushroom"
         },
         {
             "question":"2",
-            "picture":"/web/2.png",
+            "picture":"2.png",
             "answer":"snake"
         },
         {
             "question":"3",
-            "picture":"/web/3.png",
+            "picture":"3.png",
             "answer":"hat"
         },
         {
             "question":"4",
-            "picture":"/web/4.png",
+            "picture":"4.png",
             "answer":"bat"
         },
         {
             "question":"5",
-            "picture":"/web/5.png",
+            "picture":"5.png",
             "answer":"moon"
         },
         {
             "question":"6",
-            "picture":"/web/6.png",
+            "picture":"6.png",
             "answer":"spider"
         },
         {
             "question":"7",
-            "picture":"/web/7.png",
+            "picture":"7.png",
             "answer":"crow"
         },
         {
             "question":"8",
-            "picture":"/web/8.png",
+            "picture":"8.png",
             "answer":"knife"
         },
         {
             "question":"9",
-            "picture":"/web/9.png",
+            "picture":"9.png",
             "answer":"pumpkin"
         },
         {
             "question":"10",
-            "picture":"/web/10.png",
+            "picture":"10.png",
             "answer":"ghost"
         },
         {
             "question":"11",
-            "picture":"/web/11.png",
+            "picture":"11.png",
             "answer":"boots"
         },
         {
             "question":"12",
-            "picture":"/web/12.png",
+            "picture":"12.png",
             "answer":"candle"
         },
         {
             "question":"13",
-            "picture":"/web/13.png",
+            "picture":"13.png",
             "answer":"book"
         },
         {
             "question":"14",
-            "picture":"/web/14.png",
+            "picture":"14.png",
             "answer":"clock"
         },
         {
             "question":"15",
-            "picture":"/web/15.png",
+            "picture":"15.png",
             "answer":"rat"
         },
         {
             "question":"16",
-            "picture":"/web/16.png",
+            "picture":"16.png",
             "answer":"house"
         },
         {
             "question":"17",
-            "picture":"/web/17.png",
+            "picture":"17.png",
             "answer":"eye"
         }
     ]
