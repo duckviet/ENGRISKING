@@ -28,7 +28,7 @@
         <div class="start__site" id="firstSAite">
             <div class="first--site">
                 <div class="startgame">
-                    <img src="/1x/start.png" alt="start" class="start_pic">
+                    <img src="1x\start.png" alt="start" class="start_pic">
                 </div>
             </div>
         </div>
@@ -175,7 +175,7 @@
                         start.answerRight = start.answerRight + 1;
                         progress.value = Math.floor((start.answerRight / (start.Art.length || 1)) * 100);
 
-                        notify.innerHTML = `<img src="/right/${Math.floor(Math.random() * 7)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
+                        notify.innerHTML = `<img src="right\${Math.floor(Math.random() * 7)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
                         if (start.answerRight == 17) {
                             // Show the reward
                             const rewardSite = document.querySelector('.reward-site');
@@ -189,7 +189,7 @@
                         }
                     }
                     else{
-                        notify.innerHTML = `<img src="/faul/${Math.floor(Math.random() * 4)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
+                        notify.innerHTML = `<img src="faul\${Math.floor(Math.random() * 4)}.png" alt="answer" class="comment_pic animate__animated animate__bounceIn">`
                         setTimeout(clearCanvas(), 5000);
                     }
                 });
